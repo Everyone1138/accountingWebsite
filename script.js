@@ -2,6 +2,7 @@ const header = document.querySelector('.site-header');
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.main-nav');
 const navLinks = document.querySelectorAll('.main-nav a');
+const pageLang = document.documentElement.lang.startsWith('en') ? 'en' : 'es';
 
 function updateHeader() {
   header.classList.toggle('scrolled', window.scrollY > 16);
@@ -14,7 +15,7 @@ menuToggle.addEventListener('click', () => {
   nav.classList.toggle('open', open);
   menuToggle.classList.toggle('active', open);
   menuToggle.setAttribute('aria-expanded', String(open));
-  menuToggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  menuToggle.setAttribute('aria-label', open ? (pageLang === 'en' ? 'Close menu' : 'Cerrar menú') : (pageLang === 'en' ? 'Open menu' : 'Abrir menú'));
   document.body.classList.toggle('menu-open', open);
 });
 
@@ -23,7 +24,7 @@ navLinks.forEach(link => {
     nav.classList.remove('open');
     menuToggle.classList.remove('active');
     menuToggle.setAttribute('aria-expanded', 'false');
-    menuToggle.setAttribute('aria-label', 'Abrir menú');
+    menuToggle.setAttribute('aria-label', pageLang === 'en' ? 'Open menu' : 'Abrir menú');
     document.body.classList.remove('menu-open');
   });
 });
@@ -51,7 +52,7 @@ const marginResult = document.getElementById('marginResult');
 const profitResult = document.getElementById('profitResult');
 const gaugeFill = document.getElementById('gaugeFill');
 
-const cop = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 });
+const cop = new Intl.NumberFormat(pageLang === 'en' ? 'en-US' : 'es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 });
 function updateCalculator() {
   const rev = Math.max(0, Number(revenue.value) || 0);
   const exp = Math.max(0, Number(expenses.value) || 0);
@@ -59,7 +60,7 @@ function updateCalculator() {
   const profit = rev - exp - pay;
   const margin = rev > 0 ? (profit / rev) * 100 : 0;
   marginResult.textContent = `${margin.toFixed(1)}%`;
-  profitResult.textContent = `Resultado operativo: ${cop.format(profit)}`;
+  profitResult.textContent = `${pageLang === 'en' ? 'Operating result' : 'Resultado operativo'}: ${cop.format(profit)}`;
   const gaugeValue = Math.min(100, Math.max(0, margin));
   gaugeFill.style.width = `${gaugeValue}%`;
   gaugeFill.style.opacity = profit < 0 ? '.45' : '1';
@@ -82,14 +83,15 @@ const form = document.getElementById('contactForm');
 form.addEventListener('submit', event => {
   event.preventDefault();
   const data = new FormData(form);
-  const subject = encodeURIComponent(`Consulta Arco V&S — ${data.get('service')}`);
+  const isEn = pageLang === 'en';
+  const subject = encodeURIComponent(`${isEn ? 'Arco V&S inquiry' : 'Consulta Arco V&S'} — ${data.get('service')}`);
   const body = encodeURIComponent(
-    `Nombre: ${data.get('name')}\n` +
-    `Empresa: ${data.get('company') || 'No indicado'}\n` +
-    `Correo: ${data.get('email')}\n` +
-    `Teléfono: ${data.get('phone') || 'No indicado'}\n` +
-    `Servicio: ${data.get('service')}\n\n` +
-    `Mensaje:\n${data.get('message')}`
+    `${isEn ? 'Name' : 'Nombre'}: ${data.get('name')}\n` +
+    `${isEn ? 'Company' : 'Empresa'}: ${data.get('company') || (isEn ? 'Not provided' : 'No indicado')}\n` +
+    `${isEn ? 'Email' : 'Correo'}: ${data.get('email')}\n` +
+    `${isEn ? 'Phone' : 'Teléfono'}: ${data.get('phone') || (isEn ? 'Not provided' : 'No indicado')}\n` +
+    `${isEn ? 'Service' : 'Servicio'}: ${data.get('service')}\n\n` +
+    `${isEn ? 'Message' : 'Mensaje'}:\n${data.get('message')}`
   );
   window.location.href = `mailto:sergio.gacha@arcovysconsulting.com?subject=${subject}&body=${body}`;
 });
