@@ -20,4 +20,7 @@
   <url><loc>https://arcovysconsulting.com/en/services/project-accounting/</loc></url>
   <url><loc>https://arcovysconsulting.com/servicios/consultoria-financiera/</loc></url>
   <url><loc>https://arcovysconsulting.com/en/services/financial-advisory/</loc></url>
+
+  <url><loc>https://arcovysconsulting.com/contacto/</loc><xhtml:link rel="alternate" hreflang="es-CO" href="https://arcovysconsulting.com/contacto/"/><xhtml:link rel="alternate" hreflang="en" href="https://arcovysconsulting.com/en/contact/"/></url>
+  <url><loc>https://arcovysconsulting.com/en/contact/</loc><xhtml:link rel="alternate" hreflang="es-CO" href="https://arcovysconsulting.com/contacto/"/><xhtml:link rel="alternate" hreflang="en" href="https://arcovysconsulting.com/en/contact/"/></url>
 </urlset>

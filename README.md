@@ -19,3 +19,9 @@ Upload the **contents** of this folder to the repository root. `index.html` must
 
 ## Production note
 Service descriptions are written as marketing copy and should be reviewed by the firm's Colombian public accountant/tax adviser before launch, especially scope-specific tax, payroll, NIIF and compliance wording.
+
+
+## Dedicated contact pages
+- Spanish: `/contacto/`
+- English: `/en/contact/`
+- Internal service-page contact buttons now route to these pages. The homepage was not modified.
