@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="t d">
+  <title id="t">Bilingual advisory illustration</title><desc id="d">Abstract conversation bubbles representing Spanish and English support.</desc>
+  <defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f5f0e5"/><stop offset="1" stop-color="#e9dfca"/></linearGradient></defs>
+  <rect width="900" height="520" rx="36" fill="url(#bg)"/>
+  <circle cx="720" cy="102" r="180" fill="#d6b35f" opacity=".18"/>
+  <rect x="85" y="105" width="438" height="205" rx="34" fill="#15202f"/>
+  <path d="M173 310l-36 70 89-70" fill="#15202f"/>
+  <text x="135" y="182" font-family="Georgia,serif" font-size="55" fill="#f0d892">ES</text>
+  <text x="135" y="231" font-family="Arial,sans-serif" font-size="21" fill="#fff">Claridad en cada conversación.</text>
+  <rect x="380" y="244" width="425" height="178" rx="34" fill="#fff" stroke="#c8b891" stroke-width="2"/>
+  <path d="M686 422l55 47-7-59" fill="#fff" stroke="#c8b891" stroke-width="2"/>
+  <text x="433" y="313" font-family="Georgia,serif" font-size="55" fill="#9b7a2d">EN</text>
+  <text x="433" y="360" font-family="Arial,sans-serif" font-size="21" fill="#344154">Clear support across languages.</text>
+</svg>

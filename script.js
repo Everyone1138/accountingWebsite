@@ -1,99 +1,28 @@
-const header = document.querySelector('.site-header');
-const menuToggle = document.querySelector('.menu-toggle');
-const nav = document.querySelector('.main-nav');
-const navLinks = document.querySelectorAll('.main-nav a');
-const pageLang = document.documentElement.lang.startsWith('en') ? 'en' : 'es';
-
-function updateHeader() {
-  header.classList.toggle('scrolled', window.scrollY > 16);
-}
-updateHeader();
-window.addEventListener('scroll', updateHeader, { passive: true });
-
-menuToggle.addEventListener('click', () => {
-  const open = !nav.classList.contains('open');
-  nav.classList.toggle('open', open);
-  menuToggle.classList.toggle('active', open);
-  menuToggle.setAttribute('aria-expanded', String(open));
-  menuToggle.setAttribute('aria-label', open ? (pageLang === 'en' ? 'Close menu' : 'Cerrar menú') : (pageLang === 'en' ? 'Open menu' : 'Abrir menú'));
-  document.body.classList.toggle('menu-open', open);
-});
-
-navLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    nav.classList.remove('open');
-    menuToggle.classList.remove('active');
-    menuToggle.setAttribute('aria-expanded', 'false');
-    menuToggle.setAttribute('aria-label', pageLang === 'en' ? 'Open menu' : 'Abrir menú');
-    document.body.classList.remove('menu-open');
-  });
-});
-
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const revealEls = document.querySelectorAll('.reveal');
-if (reducedMotion || !('IntersectionObserver' in window)) {
-  revealEls.forEach(el => el.classList.add('is-visible'));
-} else {
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        revealObserver.unobserve(entry.target);
-      }
+const menu=document.querySelector('.menu'),nav=document.querySelector('.main-nav');if(menu){menu.addEventListener('click',()=>{nav.classList.toggle('open');menu.setAttribute('aria-expanded',nav.classList.contains('open'))});document.querySelectorAll('.main-nav a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')))}const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;const els=document.querySelectorAll('.reveal');if(reduced||!('IntersectionObserver'in window)){els.forEach(e=>e.classList.add('visible'))}else{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.12});els.forEach(e=>io.observe(e))}const lang=document.documentElement.lang.startsWith('en')?'en':'es';const rev=document.querySelector('#revenue'),exp=document.querySelector('#expenses'),pay=document.querySelector('#payroll'),m=document.querySelector('#marginResult'),profit=document.querySelector('#profitResult'),bar=document.querySelector('#gaugeFill');if(rev){const fmt=new Intl.NumberFormat(lang==='en'?'en-US':'es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0});function calc(){let r=+rev.value||0,e=+exp.value||0,p=+pay.value||0,x=r-e-p,z=r?x/r*100:0;m.textContent=z.toFixed(1)+'%';profit.textContent=(lang==='en'?'Operating result: ':'Resultado operativo: ')+fmt.format(x);bar.style.width=Math.max(0,Math.min(100,z))+'%'}[rev,exp,pay].forEach(i=>i.addEventListener('input',calc));calc()}const form=document.querySelector('#contactForm');if(form)form.addEventListener('submit',e=>{e.preventDefault();let d=new FormData(form),en=lang==='en';let s=encodeURIComponent((en?'Arco V&S inquiry':'Consulta Arco V&S')+' — '+d.get('service'));let b=encodeURIComponent((en?'Name':'Nombre')+': '+d.get('name')+'\n'+(en?'Company':'Empresa')+': '+(d.get('company')||'-')+'\nEmail: '+d.get('email')+'\n'+(en?'Service':'Servicio')+': '+d.get('service')+'\n\n'+(en?'Message':'Mensaje')+':\n'+d.get('message'));location.href='mailto:sergio.gacha@arcovysconsulting.com?subject='+s+'&body='+b});document.querySelectorAll('[data-year]').forEach(x=>x.textContent=new Date().getFullYear());
+// Subtle pointer-responsive motion and lightweight 3D interaction
+if(!reduced){
+  const hero=document.querySelector('.hero');
+  const motion=document.querySelector('.hero-motion');
+  const heroCopy=document.querySelector('.hero-copy');
+  if(hero&&motion){
+    hero.addEventListener('pointermove',e=>{
+      const r=hero.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      motion.style.transform=`translate3d(${x*-10}px,${y*-8}px,0)`;
+      if(heroCopy)heroCopy.style.transform=`translate3d(${x*4}px,${y*3}px,0)`;
     });
-  }, { threshold: 0.13, rootMargin: '0px 0px -35px' });
-  revealEls.forEach(el => revealObserver.observe(el));
-}
-
-const revenue = document.getElementById('revenue');
-const expenses = document.getElementById('expenses');
-const payroll = document.getElementById('payroll');
-const marginResult = document.getElementById('marginResult');
-const profitResult = document.getElementById('profitResult');
-const gaugeFill = document.getElementById('gaugeFill');
-
-const cop = new Intl.NumberFormat(pageLang === 'en' ? 'en-US' : 'es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 });
-function updateCalculator() {
-  const rev = Math.max(0, Number(revenue.value) || 0);
-  const exp = Math.max(0, Number(expenses.value) || 0);
-  const pay = Math.max(0, Number(payroll.value) || 0);
-  const profit = rev - exp - pay;
-  const margin = rev > 0 ? (profit / rev) * 100 : 0;
-  marginResult.textContent = `${margin.toFixed(1)}%`;
-  profitResult.textContent = `${pageLang === 'en' ? 'Operating result' : 'Resultado operativo'}: ${cop.format(profit)}`;
-  const gaugeValue = Math.min(100, Math.max(0, margin));
-  gaugeFill.style.width = `${gaugeValue}%`;
-  gaugeFill.style.opacity = profit < 0 ? '.45' : '1';
-}
-[revenue, expenses, payroll].forEach(input => input.addEventListener('input', updateCalculator));
-updateCalculator();
-
-const details = document.querySelectorAll('.accordion details');
-details.forEach(item => {
-  item.addEventListener('toggle', () => {
-    if (item.open) {
-      details.forEach(other => {
-        if (other !== item) other.open = false;
-      });
-    }
+    hero.addEventListener('pointerleave',()=>{motion.style.transform='';if(heroCopy)heroCopy.style.transform=''});
+  }
+  document.querySelectorAll('.feature-card,.mini-card,.calc-card').forEach(card=>{
+    card.addEventListener('pointermove',e=>{
+      if(matchMedia('(pointer:fine)').matches===false)return;
+      const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      card.style.transform=`perspective(900px) rotateX(${y*-2.5}deg) rotateY(${x*3}deg) translateY(-3px)`;
+    });
+    card.addEventListener('pointerleave',()=>card.style.transform='');
   });
-});
+}
 
-const form = document.getElementById('contactForm');
-form.addEventListener('submit', event => {
-  event.preventDefault();
-  const data = new FormData(form);
-  const isEn = pageLang === 'en';
-  const subject = encodeURIComponent(`${isEn ? 'Arco V&S inquiry' : 'Consulta Arco V&S'} — ${data.get('service')}`);
-  const body = encodeURIComponent(
-    `${isEn ? 'Name' : 'Nombre'}: ${data.get('name')}\n` +
-    `${isEn ? 'Company' : 'Empresa'}: ${data.get('company') || (isEn ? 'Not provided' : 'No indicado')}\n` +
-    `${isEn ? 'Email' : 'Correo'}: ${data.get('email')}\n` +
-    `${isEn ? 'Phone' : 'Teléfono'}: ${data.get('phone') || (isEn ? 'Not provided' : 'No indicado')}\n` +
-    `${isEn ? 'Service' : 'Servicio'}: ${data.get('service')}\n\n` +
-    `${isEn ? 'Message' : 'Mensaje'}:\n${data.get('message')}`
-  );
-  window.location.href = `mailto:sergio.gacha@arcovysconsulting.com?subject=${subject}&body=${body}`;
-});
-
-document.getElementById('year').textContent = new Date().getFullYear();
+// Service page FAQ accordions
+document.querySelectorAll('.faq-q').forEach(btn=>btn.addEventListener('click',()=>{const item=btn.closest('.faq-item');const open=item.classList.toggle('open');btn.setAttribute('aria-expanded',open?'true':'false')}));
