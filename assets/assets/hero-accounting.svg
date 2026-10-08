@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="t d">
+  <title id="t">Accounting dashboard illustration</title><desc id="d">Abstract financial report with bars, lines and figures.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#172233"/><stop offset="1" stop-color="#24354b"/></linearGradient>
+    <linearGradient id="gold" x1="0" x2="1"><stop stop-color="#d6b35f"/><stop offset="1" stop-color="#f0d892"/></linearGradient>
+  </defs>
+  <rect width="900" height="520" rx="36" fill="url(#bg)"/>
+  <g opacity=".18" stroke="#fff"><path d="M0 105h900M0 210h900M0 315h900M0 420h900"/><path d="M150 0v520M300 0v520M450 0v520M600 0v520M750 0v520"/></g>
+  <rect x="72" y="62" width="756" height="396" rx="26" fill="#fff" opacity=".96"/>
+  <rect x="110" y="103" width="220" height="18" rx="9" fill="#182333" opacity=".9"/>
+  <rect x="110" y="142" width="156" height="10" rx="5" fill="#98a0aa" opacity=".48"/>
+  <rect x="110" y="212" width="56" height="154" rx="14" fill="#d6b35f" opacity=".6"/>
+  <rect x="184" y="262" width="56" height="104" rx="14" fill="#d6b35f" opacity=".82"/>
+  <rect x="258" y="186" width="56" height="180" rx="14" fill="url(#gold)"/>
+  <path d="M376 340C455 313 487 229 554 245S664 326 748 174" fill="none" stroke="#182333" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="376" cy="340" r="11" fill="#d6b35f"/><circle cx="554" cy="245" r="11" fill="#d6b35f"/><circle cx="748" cy="174" r="11" fill="#d6b35f"/>
+  <text x="615" y="123" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#182333">+12.8%</text>
+  <text x="615" y="151" font-family="Arial,sans-serif" font-size="13" fill="#7c8590">MARGEN OPERATIVO</text>
+</svg>
