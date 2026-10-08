@@ -25,3 +25,7 @@ Service descriptions are written as marketing copy and should be reviewed by the
 - Spanish: `/contacto/`
 - English: `/en/contact/`
 - Internal service-page contact buttons now route to these pages. The homepage was not modified.
+
+
+## Brand assets
+Official Arco V&S logo and favicon assets are included in `/assets/` and referenced on every HTML page.
